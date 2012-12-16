@@ -1,0 +1,37 @@
+name:           PropDoc
+version:        0.1
+synopsis:       Small package with one program
+description:    TODO
+homepage:       http://localhost
+author:         Chris Lewis <chris@thegodcode.net>
+maintainer:     chris@thegodcode.net
+bug-reports:    http://localhost/issues
+license:        BSD3
+License-file:   LICENSE
+build-type:     Simple
+cabal-version:  >= 1.8
+
+library
+  build-depends:   base
+  exposed-modules: Core, Input.JavaProps
+  hs-source-dirs: src
+  --Ghc-options:    -Wall
+
+executable propdoc
+  build-depends:  base
+  main-is:        Main.hs
+  hs-source-dirs: src
+  --Ghc-options:    -Wall
+
+Test-suite tests
+  Type:              exitcode-stdio-1.0
+  Hs-source-dirs:    tests
+  Main-is:           Properties.hs
+  Build-depends:     base,
+                     PropDoc,
+                     test-framework >= 0.3.3,
+                     test-framework-quickcheck2 >= 0.2.9,
+                     QuickCheck >= 2.4.0.1
+  Ghc-options:       -Wall -fno-warn-orphans
+  if impl(ghc >= 7.2.1)
+    CPP-Options:     -DGENERICS
