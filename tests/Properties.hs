@@ -1,6 +1,6 @@
 module Main (main) where
 
-import Input.JavaProps
+import PropDoc.Input.JavaProps
 import Test.Framework (defaultMain)
 import Test.Framework.Providers.QuickCheck2 (testProperty)
 

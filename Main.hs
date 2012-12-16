@@ -1,8 +1,8 @@
 module Main where
 
 import System.Environment
-import Core
-import Input.JavaProps
+import PropDoc.Core
+import PropDoc.Input.JavaProps
 
 jp = props nvp Nothing []
 

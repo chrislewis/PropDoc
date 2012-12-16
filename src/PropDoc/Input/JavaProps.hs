@@ -1,6 +1,6 @@
-module Input.JavaProps where
+module PropDoc.Input.JavaProps where
 
-import Core
+import PropDoc.Core
 import Prelude hiding (foldr)
 import Data.Foldable (foldr)
 import Control.Monad (mfilter)

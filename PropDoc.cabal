@@ -13,7 +13,7 @@ cabal-version:  >= 1.8
 
 library
   build-depends:   base
-  exposed-modules: Core, Input.JavaProps
+  exposed-modules: PropDoc.Core, PropDoc.Input.JavaProps
   hs-source-dirs: src
   --Ghc-options:    -Wall
 

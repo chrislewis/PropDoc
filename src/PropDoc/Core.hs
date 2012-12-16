@@ -1,4 +1,4 @@
-module Core where
+module PropDoc.Core where
 
 type NVParser = Char -> String -> Maybe (String, String)
 
