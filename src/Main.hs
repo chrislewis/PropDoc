@@ -11,4 +11,4 @@ main = do
   name <- return (head args)
   contents <- readFile name
   let defs = props nameValuePair Nothing [] (lines contents)
-  putStrLn $ foldr (\a acc -> acc ++ (show a)) "" defs
+  putStr $ foldr (\a acc -> acc ++ (show a)) "" defs
