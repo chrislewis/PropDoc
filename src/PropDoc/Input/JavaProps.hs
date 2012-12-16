@@ -1,12 +1,13 @@
 module PropDoc.Input.JavaProps where
 
 import PropDoc.Core
+import Control.Monad (mfilter)
 import Prelude hiding (foldr)
 import Data.Foldable (foldr)
-import Control.Monad (mfilter)
+import Data.List (isPrefixOf)
 
 -- Test if a line is a comment.
-isComment = startsWith "#"
+isComment = isPrefixOf "#"
 
 -- Test if a line is a property setting.
 isNVP = not . isComment

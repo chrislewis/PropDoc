@@ -1,36 +1,35 @@
 module PropDoc.Core where
 
+-- A function type to break a string into a tuple by some character.
 type NVParser = Char -> String -> Maybe (String, String)
 
 -- A named directive with an optional description.
-data Def = Def String (Maybe String) deriving (Eq, Show)
+data Def = Def String (Maybe String) deriving (Eq)
 
---         delim   input     current    auccum
-splitOn :: Char -> String -> String -> [String] -> [String]
-splitOn _ "" cur acc =
-  reverse $ if cur == "" then acc
-            else reverse cur : acc
-splitOn d (x:xs) cur acc =
-  if x == d then splitOn d xs "" (reverse cur : acc)
-  else splitOn d xs (x:cur) acc
-
-split :: Char -> String  -> [String]
-split d s = splitOn d s "" []
-
--- TODO provided?
-startsWith :: String -> String -> Bool
-startsWith pfx s | length pfx <= length s = foldr (\a b -> b && fst a == snd a) True (zip pfx s)
-startsWith _ _ = False
+instance Show Def where
+  show (Def name (Just value))  = "Name        : " ++ name ++ "\nDescription : " ++ value ++ "\n\n"
+  show (Def name _)             = "Name        : " ++ name ++ "\nDescription : <Nothing>\n\n"
 
 -- Parse a string into a 'name' and 'value' pair, given a value v and a delimiter d.
-nvp :: Char -> String -> Maybe (String, String)
-nvp d v = case (split d v) of
+nameValuePair :: NVParser
+nameValuePair d v = case (split d v) of
            (name:value:[]) -> Just (name, value)
            _ -> Nothing
 
+{-
+  String utilities. These must be in a core library somewhere, and when I find where,
+  I'll replace these.
+-}
 
-str (Def name (Just value)) = "Name        : " ++ name ++ "\nDescription : " ++ value ++ "\n\n"
-str (Def name _) = "Name        : " ++ name ++ "\nDescription : <Nothing>\n\n"
+-- Split a string starting with an explicit current string and accumulated parts.
+splitOn :: String -> [String] -> Char -> String -> [String]
+splitOn cur acc _ "" =
+  reverse $ if cur == "" then acc
+            else reverse cur : acc
+splitOn cur acc d (x:xs) =
+  if x == d then splitOn "" (reverse cur : acc) d xs
+  else splitOn (x:cur) acc d xs
 
-
-foobs show' = foldr (\a acc -> acc ++ (show' a)) ""
+-- Most common specialization of splitOn (empty state).
+split :: Char -> String  -> [String]
+split = splitOn "" []
